@@ -23,20 +23,108 @@ class: center, middle
 
 ---
 
-class: slide-short
+class: rendering-cycle
 # Browser Rendering Cycle
 
-*
+* (Re)calculate styles
+* Layout (dimensions and positions)
+* Paint
+* Composite Layers
+
+![Browser Rendering Dev Tools Screenshot](images/devtools-waterfall.jpg)
+.img-caption[
+  **Source:** [High Performance Animations][hp_anim]
+]
 
 ???
 
-*
+* Want 60 FPS/ 16ms per pre-render
+
+---
+
+# Browser Rendering Cycle
+## Layout
+
+* a.k.a. reflow
+* Layout can also affect:
+  * Child elements
+  * Neighboring elements
+* Changing certain props triggers layout:
+  * width
+  * position
+  * margin
+  * More: [csstriggers.com][triggers]
+
+[triggers]: http://csstriggers.com/
+
+---
+
+# Browser Rendering Cycle
+## Paint
+
+* Painting can be *slowwwwwwww*
+* Goal: Don't paint or paint as small of area as possible
+  * Browser draws smallest rectangle encompassing areas to paint
+* Changing certain props triggers paint:
+  * color
+  * background
+  * box-shadow
+  * More: [csstriggers.com][triggers]
+* Triggering layout will probably also cause paint
+
+---
+
+# Browser Rendering Cycle
+## Composite Layers
+
+* Browser paints to layers (like Photoshop's)
+* Sends them to GPU
+* GPU *composites* (flattens) them
+* Then ready for drawing
+
+---
+
+# GPU Layers
+
+* Can cheaply animate position, scale, rotation and opacity.
+  * `transform: translate(...);`
+  * `transform: scale(...);`
+  * `transform: rotate(...);`
+  * `opacity: 0...1;`
+* Forcing creation of layer for element:
+  * `transform: translateZ(0)` or `transform: translate3d(0,0,0)`
+  * Newest way: `will-change: transform, opacity;`
+  * Don't go to crazy with it...
+
+???
+
+* These props don't trigger layout
+
+---
+
+# Achieving Performance
+
+* Want 60 FPS
+* Only 16ms for JS and Re-render
+
+---
+
+# Resources
+
+* [High Performance Animations][hp_anim]
+* [JankFree.org][jf]
+* [Optimising for 60fps everywhere][60_everywhere]
+* [Pixels are expensive][pixels_exp]
+
+[hp_anim]: http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
+[jf]: http://jankfree.org/
+[60_everywhere]: https://engineering.gosquared.com/optimising-60fps-everywhere-in-javascript
+[pixels_exp]: https://aerotwist.com/blog/pixels-are-expensive/
 
     </textarea>
     <script src="remark.min.js"></script>
     <script>
       var slideshow = remark.create();
     </script>
-    <script src="line_numbers.js"></script>
   </body>
 </html>
