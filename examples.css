@@ -1,0 +1,127 @@
+.ex {
+  border: 1px #000 solid;
+  height: 500px;
+  margin: 0 auto;
+  position: relative;
+  width: 500px;
+}
+
+.ex-1-el,
+.ex-2-el {
+  /*background: radial-gradient(ellipse at center, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);*/
+  background-image: url(images/smiley.jpg);
+  background-size: 100px 100px;
+  height: 100px;
+  width: 100px;
+}
+
+.ex-1-el {
+  animation: ex-1 3s linear infinite;
+  position: absolute;
+}
+
+.ex-2-el {
+  animation: ex-2 3s linear infinite;
+}
+
+@keyframes ex-1 {
+  0% {
+    left: 200px;
+    top: 0;
+  }
+  12% {
+    left: 100px;
+    top: 100px;
+    width: 125px;
+    height: 125px;
+    background-size: 125px 125px;
+  }
+  25% {
+    left: 0;
+    top: 200px;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+  }
+  37% {
+    left: 100px;
+    top: 300px;
+    width: 125px;
+    height: 125px;
+    background-size: 125px 125px;
+  }
+  50% {
+    left: 200px;
+    top: 400px;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+  }
+  62% {
+    left: 300px;
+    top: 300px;
+    width: 125px;
+    height: 125px;
+    background-size: 125px 125px;
+  }
+  75% {
+    left: 400px;
+    top: 200px;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+  }
+  87% {
+    left: 300px;
+    top: 100px;
+    width: 125px;
+    height: 125px;
+    background-size: 125px 125px;
+  }
+  100% {
+    left: 200px;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+  }
+}
+
+@keyframes ex-2 {
+  0% {
+    transform: translate(200px, 0);
+  }
+  12.5% {
+    transform: translate(100px, 100px) scale(1.25);
+  }
+  25% {
+    transform: translate(0, 200px);
+  }
+  37% {
+    transform: translate(100px, 300px) scale(1.25);
+  }
+  50% {
+    transform: translate(200px, 400px);
+  }
+  62% {
+    transform: translate(300px, 300px) scale(1.25);
+  }
+  75% {
+    transform: translate(400px, 200px);
+  }
+  87% {
+    transform: translate(300px, 100px) scale(1.25);
+  }
+  100% {
+    transform: translate(200px, 0);
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
