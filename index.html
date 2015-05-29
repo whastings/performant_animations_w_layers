@@ -39,6 +39,13 @@ class: rendering-cycle
 ???
 
 * Want 60 FPS/ 16ms per pre-render
+  * Includes JS
+* Recalc style whenever styles change
+* Layout: Calc size and position
+* Paint: Draw pixels to layers
+* Composite: Flatten layers for display
+* Not all required
+* Fewers steps = better perf
 
 ---
 
@@ -46,16 +53,26 @@ class: rendering-cycle
 ## Layout
 
 * a.k.a. reflow
+* Calculate geometry of changed elements
 * Layout can also affect:
   * Child elements
   * Neighboring elements
-* Changing certain props triggers layout:
+* Changing certain props triggers layout (try to avoid this):
   * width
   * position
   * margin
   * More: [csstriggers.com][triggers]
 
 [triggers]: http://csstriggers.com/
+
+???
+
+* reflow
+* Expensive:
+  * Children
+  * Neighbors
+* Avoid animating props that trigger
+  * See CSS triggers
 
 ---
 
@@ -72,6 +89,14 @@ class: rendering-cycle
   * More: [csstriggers.com][triggers]
 * Triggering layout will probably also cause paint
 
+???
+
+* Expensive
+* Try to avoid/minimize
+  * Avoid wide paint area (e.g. two corners of screen)
+* Certain props: box-shadow, gradient backgrounds
+* Layout usually = paint
+
 ---
 
 # Browser Rendering Cycle
@@ -80,46 +105,80 @@ class: rendering-cycle
 * Browser paints to layers (like Photoshop's)
 * Sends them to GPU
 * GPU *composites* (flattens) them
+  * But can do (animate) some things before this
 * Then ready for drawing
+
+???
+
+* Paint to layers
+* Upload to GPU
+* GPU composites... one image
+* Browser draws to screen
+* Want to animate here
 
 ---
 
-# GPU Layers
+# Using Layers
 
 * Can cheaply animate position, scale, rotation and opacity.
   * `transform: translate(...);`
   * `transform: scale(...);`
   * `transform: rotate(...);`
   * `opacity: 0...1;`
-* Forcing creation of layer for element:
-  * `transform: translateZ(0)` or `transform: translate3d(0,0,0)`
-  * Newest way: `will-change: transform, opacity;`
-  * Don't go to crazy with it...
+* Need to create layer for animated element
+* Classic way: `transform: translateZ(0)` or `transform: translate3d(0, 0, 0)`
+  * Forces creation
+  * Don't go [too crazy with it][apple_home]...
+* Newest way: `will-change: transform, opacity;`
 
 ???
 
-* These props don't trigger layout
+* animations of transform and opacity done on GPU
+  * Very efficient: Move around, Resize, Rotate, Change transparency
+  * These props don't trigger layout
+  * Can avoid paint w/ own layer
+* Have to get element on layer
+  * Hack: `translateZ(0)` or `translate3d(0, 0, 0)`
+    * Forces
+    * Can be overdone (e.g. Apple home carousel)
+  * `will-change`
+    * Tell browser what you'll change
+    * It can optimize
+      * e.g. Creating layer
+
+[apple_home]: http://wesleyhales.com/blog/2013/10/26/Jank-Busting-Apples-Home-Page/
 
 ---
 
-# Achieving Performance
+# Testing w/ DevTools
 
-* Want 60 FPS
-* Only 16ms for JS and Re-render
+0. Open DevTools
+0. Turn on `Show paint rectangles`
+0. Turn on `Show composited layer borders`
+0. Check for layer and painting
+0. Confirm w/ Timeline
 
 ---
 
 # Resources
 
 * [High Performance Animations][hp_anim]
-* [JankFree.org][jf]
 * [Optimising for 60fps everywhere][60_everywhere]
 * [Pixels are expensive][pixels_exp]
+* [Performant CSS Animations][perf_anims]
+* [Everything You Need to Know About the CSS will-change Property][will_change]
+* [JankFree.org][jf]
 
 [hp_anim]: http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
 [jf]: http://jankfree.org/
 [60_everywhere]: https://engineering.gosquared.com/optimising-60fps-everywhere-in-javascript
 [pixels_exp]: https://aerotwist.com/blog/pixels-are-expensive/
+[will_change]: http://dev.opera.com/articles/css-will-change-property/
+[perf_anims]: http://eng.wealthfront.com/2015/05/performant-css-animations.html
+
+???
+
+* More optimizations (e.g. avoiding layout thrashing)
 
     </textarea>
     <script src="remark.min.js"></script>
