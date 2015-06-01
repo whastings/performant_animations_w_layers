@@ -25,23 +25,44 @@ class: center, middle
 
 ---
 
+class: slide-short
+# Our Goal
+
+* Smooth animations at 60 FPS
+  * Constraint: ≈ 16ms for JS + render cycle
+  * Rerender waits for JS (don't block it!)
+
+???
+
+* Goal: 60 fps
+* Only 16ms!
+* Don't block!
+  * Dropped frames
+  * Janky animations
+
+---
+
 class: rendering-cycle
 # Browser Rendering Cycle
 
-* (Re)calculate styles
-* Layout (dimensions and positions)
-* Paint
-* Composite Layers
-
+.col-one-third[
+* Steps:
+  * (Re)calculate styles
+  * Layout (dimensions and positions)
+  * Paint (to layers)
+  * Composite Layers
+* Can sometimes skip step(s) (layout, paint)
+* Fewer steps = better perf
+]
+.col-two-third[
 ![Browser Rendering Dev Tools Screenshot](images/devtools-waterfall.jpg)
 .img-caption[
   **Source:** [High Performance Animations][hp_anim]
 ]
+]
 
 ???
 
-* Want 60 FPS/ 16ms per pre-render
-  * Includes JS
 * Recalc style whenever styles change
 * Layout: Calc size and position
 * Paint: Draw pixels to layers
@@ -96,7 +117,8 @@ class: rendering-cycle
 * Expensive
 * Try to avoid/minimize
   * Avoid wide paint area (e.g. two corners of screen)
-* Certain props: box-shadow, gradient backgrounds
+* Certain props trigger
+  * Some really expensive: box-shadow, gradient backgrounds
 * Layout usually = paint
 
 ---
@@ -131,7 +153,7 @@ class: rendering-cycle
 * Classic way: `transform: translateZ(0)` or `transform: translate3d(0, 0, 0)`
   * Forces creation
   * Don't go [too crazy with it][apple_home]...
-* Newest way: `will-change: transform, opacity;`
+* New way: `will-change: transform, opacity;`
 
 ???
 
@@ -140,25 +162,25 @@ class: rendering-cycle
   * These props don't trigger layout
   * Can avoid paint w/ own layer
 * Have to get element on layer
-  * Hack: `translateZ(0)` or `translate3d(0, 0, 0)`
-    * Forces
-    * Can be overdone (e.g. Apple home carousel)
-  * `will-change`
-    * Tell browser what you'll change
-    * It can optimize
-      * e.g. Creating layer
+* Hack: `translateZ(0)` or `translate3d(0, 0, 0)`
+  * Forces
+  * Can be overdone (e.g. Apple home carousel)
+* `will-change`
+  * Tell browser what you'll change
+  * It can optimize
+    * e.g. Creating layer
 
 [apple_home]: http://wesleyhales.com/blog/2013/10/26/Jank-Busting-Apples-Home-Page/
 
 ---
 
 # Testing w/ DevTools
+## Checking for Layers
 
 0. Open DevTools
 0. Turn on `Show paint rectangles`
 0. Turn on `Show composited layer borders`
 0. Check for layer and painting
-0. Confirm w/ Timeline
 
 ![Rendering checkboxes][rendering_checks]
 
@@ -171,18 +193,41 @@ class: rendering-cycle
 ---
 
 # Testing w/ DevTools
-## Example 1: Poor Performance w/o Layers
+## Profiling Performance
+
+.col-one-third[
+0. Open DevTools
+0. Go to **Timeline** Tab
+0. Turn on **Frames view** is on.
+0. Check *Paint* in **Capture**
+0. Start recording (hint: Command + r)
+0. Trigger animation (if needed)
+0. Stop recording
+0. Look for frames less than 60 fps
+0. Look for long JS, layout, paints
+]
+
+.col-two-third[
+![Checking Perf with DevTools][perf_check]
+]
+
+[perf_check]: images/perf_check.png
+
+---
+
+# Testing w/ DevTools
+## Example 3: No Layers
 
 .ex.ex-1[
-  .ex-1-el[
-
-  ]
+  .ex-1-el[]
+  .ex-1-el[]
+  .ex-1-el[]
 ]
 
 ---
 
 # Testing w/ DevTools
-## Example 2: Good Performance w/ Layers
+## Example 4: Layers
 
 .ex.ex-2[
   .ex-2-el[

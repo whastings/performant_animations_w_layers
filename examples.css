@@ -20,6 +20,18 @@
   position: absolute;
 }
 
+.ex-1-el:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.ex-1-el:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.ex-1-el:nth-child(4) {
+  animation-delay: 3s;
+}
+
 .ex-2-el {
   animation: ex-2 3s linear infinite;
 }

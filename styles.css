@@ -2,6 +2,10 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
+* {
+  box-sizing: border-box
+}
+
 body { font-family: 'Droid Serif'; }
 
 a,
@@ -57,7 +61,7 @@ img {
 }
 
 .slide-short li {
-  font-size: 150%;
+  font-size: 2rem;
 }
 
 .slide-med {
@@ -94,6 +98,7 @@ img {
 }
 
 .col-two-third {
+  padding-left: 20px;
   width: 66%;
 }
 
@@ -101,6 +106,10 @@ img {
 .col-half,
 .col-two-third {
   float: left;
+}
+
+[class^="col-"] img {
+  margin-top: 20px;
 }
 
 .pre-no-margin pre {
