@@ -10,6 +10,7 @@
 .ex-2-el {
   background-image: url(images/smiley.jpg);
   background-size: 100px 100px;
+  border-radius: 50%;
   height: 100px;
   width: 100px;
   visibility: hidden;

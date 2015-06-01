@@ -115,3 +115,7 @@ img {
 .pre-no-margin pre {
   margin: 0;
 }
+
+.title-slide img {
+  max-width: 40%;
+}

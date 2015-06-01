@@ -9,10 +9,13 @@
   <body>
     <textarea id="source">
 
-class: center, middle
+class: center, middle, title-slide
+![Layers graphic][layers]
 # Performant Animations with Layers
 ## NOTE: Work in Progress
 **By Will Hastings**
+
+[layers]: images/layers.jpg
 
 ???
 
@@ -42,7 +45,7 @@ class: slide-short
 
 ---
 
-class: rendering-cycle
+class: rendering-cycle, slide-med
 # Browser Rendering Cycle
 
 .col-one-third[
@@ -72,6 +75,7 @@ class: rendering-cycle
 
 ---
 
+class: slide-med
 # Browser Rendering Cycle
 ## Layout
 
@@ -99,6 +103,7 @@ class: rendering-cycle
 
 ---
 
+class: slide-med
 # Browser Rendering Cycle
 ## Paint
 
@@ -123,6 +128,7 @@ class: rendering-cycle
 
 ---
 
+class: slide-med
 # Browser Rendering Cycle
 ## Composite Layers
 
@@ -142,6 +148,7 @@ class: rendering-cycle
 
 ---
 
+class: slide-med
 # Using Layers
 
 * Can cheaply animate position, scale, rotation and opacity.
@@ -154,6 +161,8 @@ class: rendering-cycle
   * Forces creation
   * Don't go [too crazy with it][apple_home]...
 * New way: `will-change: transform, opacity;`
+* Sometimes automatic:
+  * e.g. CSS3 animation changing position/scale/rotation/opacity
 
 ???
 
@@ -237,12 +246,14 @@ class: rendering-cycle
 
 ---
 
+class: slide-med
 # Resources
 
 * [High Performance Animations][hp_anim]
 * [Optimising for 60fps everywhere][60_everywhere]
 * [Pixels are expensive][pixels_exp]
 * [Performant CSS Animations][perf_anims]
+* [Delivering 60 FPS in the browser][60_browser]
 * [Everything You Need to Know About the CSS will-change Property][will_change]
 * [JankFree.org][jf]
 
@@ -252,6 +263,7 @@ class: rendering-cycle
 [pixels_exp]: https://aerotwist.com/blog/pixels-are-expensive/
 [will_change]: http://dev.opera.com/articles/css-will-change-property/
 [perf_anims]: http://eng.wealthfront.com/2015/05/performant-css-animations.html
+[60_browser]: https://www.youtube.com/watch?v=rpNXWxMyzHQ
 
 ???
 
