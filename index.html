@@ -22,9 +22,9 @@ class: center, middle, title-slide
 * Me: Web Dev, Horizontal
 * Talk about:
   * Browser rendering cycle
-  * GPU layers
-  * Dev tools and rendering performance
-  * Animation demos
+  * GPU layers: What? Kinds of animations?
+  * Dev tools: Check for layers, measure performance
+  * Animation demo: w/ and w/o layers
 
 ---
 
@@ -38,7 +38,7 @@ class: slide-short
 ???
 
 * Goal: 60 fps
-* Only 16ms!
+* Only 16ms! (JS and render)
 * Don't block!
   * Dropped frames
   * Janky animations
@@ -66,6 +66,7 @@ class: rendering-cycle, slide-med
 
 ???
 
+* Steps to render...
 * Recalc style whenever styles change
 * Layout: Calc size and position
 * Paint: Draw pixels to layers
@@ -84,7 +85,8 @@ class: slide-med
 * Layout can also affect:
   * Child elements
   * Neighboring elements
-* Changing certain props triggers layout (try to avoid this):
+* Quickly becomes *expensive*
+* Props that trigger:
   * width
   * position
   * margin
@@ -95,7 +97,9 @@ class: slide-med
 ???
 
 * reflow
+* Size and position
 * Expensive:
+  * Element itself
   * Children
   * Neighbors
 * Avoid animating props that trigger
@@ -110,7 +114,7 @@ class: slide-med
 * Painting can be *slowwwwwwww*
 * Goal: Don't paint or paint as small of area as possible
   * Browser draws smallest rectangle encompassing areas to paint
-* Changing certain props triggers paint:
+* Props that trigger:
   * color
   * background
   * box-shadow
@@ -123,6 +127,7 @@ class: slide-med
 * Try to avoid/minimize
   * Avoid wide paint area (e.g. two corners of screen)
 * Certain props trigger
+  * Anything related to colors
   * Some really expensive: box-shadow, gradient backgrounds
 * Layout usually = paint
 
@@ -136,6 +141,7 @@ class: slide-med
 * Sends them to GPU
 * GPU *composites* (flattens) them
   * But can do (animate) some things before this
+  * GPU animations are *fast*
 * Then ready for drawing
 
 ???
@@ -157,6 +163,8 @@ class: slide-med
   * `transform: rotate(...);`
   * `opacity: 0...1;`
 * Need to create layer for animated element
+  * Just using `transform` or `opacity` in an animaton doesn't guarantee layer
+    creation
 * Classic way: `transform: translateZ(0)` or `transform: translate3d(0, 0, 0)`
   * Forces creation
   * Don't go [too crazy with it][apple_home]...
@@ -166,7 +174,7 @@ class: slide-med
 
 ???
 
-* animations of transform and opacity done on GPU
+* animations of `transform` and `opacity` done on GPU
   * Very efficient: Move around, Resize, Rotate, Change transparency
   * These props don't trigger layout
   * Can avoid paint w/ own layer
@@ -178,6 +186,7 @@ class: slide-med
   * Tell browser what you'll change
   * It can optimize
     * e.g. Creating layer
+  * See article in Resources
 
 [apple_home]: http://wesleyhales.com/blog/2013/10/26/Jank-Busting-Apples-Home-Page/
 
@@ -189,7 +198,7 @@ class: slide-med
 0. Open DevTools
 0. Turn on `Show paint rectangles`
 0. Turn on `Show composited layer borders`
-0. Check for layer and painting
+0. Check for layer and (absence of) painting
 
 ![Rendering checkboxes][rendering_checks]
 
@@ -198,6 +207,8 @@ class: slide-med
 ???
 
 * Press ESC, then Rendering tab
+* "Paint rectangles" show every paint
+* "Layer borders" draws borders around layers
 
 ---
 
@@ -222,6 +233,18 @@ class: slide-med
 
 [perf_check]: images/perf_check.png
 
+???
+
+* In Timeline
+* Turn on Frames View
+* Capture Paint
+* Record
+* Animate
+* Stop record
+* Examine
+  * Look for slow frames
+  * Look for excess paint and layout
+
 ---
 
 # Testing w/ DevTools
@@ -233,6 +256,17 @@ class: slide-med
   .ex-1-el[]
 ]
 
+???
+
+* CSS3 animation:
+  * Top and left
+  * width and height
+  * background-size
+* DEVTOOLS
+  * Constant repainting
+  * Relayout
+  * No layers
+
 ---
 
 # Testing w/ DevTools
@@ -243,6 +277,15 @@ class: slide-med
   .ex-2-el[]
   .ex-2-el[]
 ]
+
+???
+
+* CSS3 animation:
+  * `transform: translate(...) scale(...)`
+* DEVTOOLS
+  * Layers
+  * No painting
+  * No layout
 
 ---
 
