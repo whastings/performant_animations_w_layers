@@ -1,7 +1,6 @@
 class: center, middle, title-slide
 ![Layers graphic][layers]
 # Performant Animations with Layers
-## NOTE: Work in Progress
 **By Will Hastings**
 
 [layers]: images/layers.jpg
@@ -156,6 +155,7 @@ class: slide-med
 * Paint to layers
 * Upload to GPU
 * GPU composites... one image
+  * But can animate first!
 * Browser draws to screen
 * Want to animate here
 
@@ -181,18 +181,21 @@ class: slide-med
 
 ???
 
-* animations of `transform` and `opacity` done on GPU
-  * Very efficient: Move around, Resize, Rotate, Change transparency
-  * These props don't trigger layout
-  * Can avoid paint w/ own layer
+* GPU can efficiently
+  * Move around
+  * Resize
+  * Rotate
+  * Change transparency
+* All w/ no painting
+* CSS props: `transform`, `opacity`
 * Have to get element on layer
+  * `transform` or `opacity` != guarantee
 * Hack: `translateZ(0)` or `translate3d(0, 0, 0)`
   * Forces
   * Can be overdone (e.g. Apple home carousel)
 * `will-change`
   * Tell browser what you'll change
-  * It can optimize
-    * e.g. Creating layer
+  * It can optimize (e.g. create layer)
   * See article in Resources
 
 [apple_home]: http://wesleyhales.com/blog/2013/10/26/Jank-Busting-Apples-Home-Page/
