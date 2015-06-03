@@ -1,3 +1,20 @@
+.simple-ex {
+  background-color: red;
+  display: block;
+  height: 100px;
+  margin-left: 20px;
+  margin-top: 20px;
+  opacity: 0.5;
+  transition: transform .5s ease-in, opacity .5s ease-in;
+  transform: translate3d(0, 0, 0);
+  width: 100px;
+}
+
+.simple-ex:hover {
+  opacity: 1;
+  transform: translate3d(25px, 45px, 0) rotate(45deg);
+}
+
 .ex {
   border: 1px #000 solid;
   height: 500px;

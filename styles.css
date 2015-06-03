@@ -38,6 +38,14 @@ img {
   margin-left: 15%;
 }
 
+.layer-slide h1 {
+  -webkit-font-smoothing: antialiased;
+}
+
+.layer-slide code {
+  -webkit-font-smoothing: antialiased;
+}
+
 .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
 
 .code-line-number {

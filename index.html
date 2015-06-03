@@ -192,8 +192,42 @@ class: slide-med
 
 ---
 
+class: slide-med
+# Simple Layers Example
+
+.col-half[
+```css
+.simple-ex {
+  background-color: red;
+  height: 100px;
+  opacity: 0.5;
+  transition: transform .5s ease-in,
+    opacity .5s ease-in;
+  transform: translate3d(0, 0, 0);
+  width: 100px;
+}
+
+.simple-ex:hover {
+  opacity: 1;
+  transform: translate3d(25px, 45px, 0)
+    rotate(45deg);
+}
+```
+]
+.col-half[
+  .simple-ex[]
+]
+
+???
+
+* Use `transition` to specify props to animate
+* Start w/ `transform: translate3d(0, 0, 0)` for layer
+* Animate opacity, position, and rotation
+
+---
+
 # Testing w/ DevTools
-## Checking for Layers
+## Checking for Layers and Painting
 
 0. Open DevTools
 0. Turn on `Show paint rectangles`
