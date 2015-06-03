@@ -50,6 +50,14 @@
 
 .col-half {
   width: 50%;
+
+  &:nth-child(even) {
+    padding-left: 10px;
+  }
+
+  &:nth-child(odd) {
+    padding-right: 10px;
+  }
 }
 
 .col-two-third {

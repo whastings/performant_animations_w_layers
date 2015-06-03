@@ -69,6 +69,7 @@ class: slide-med
 # Browser Rendering Cycle
 ## Layout
 
+.col-half[
 * a.k.a. reflow
 * Calculate geometry of changed elements
 * Layout can also affect:
@@ -80,6 +81,11 @@ class: slide-med
   * position
   * margin
   * More: [csstriggers.com][triggers]
+]
+
+.col-half[
+![DevTools Layout Screenshot](images/devtools_layout.png)
+]
 
 [triggers]: http://csstriggers.com/
 
@@ -100,6 +106,7 @@ class: slide-med
 # Browser Rendering Cycle
 ## Paint
 
+.col-half[
 * Painting can be *slowwwwwwww*
 * Goal: Don't paint or paint as small of area as possible
   * Browser draws smallest rectangle encompassing areas to paint
@@ -109,6 +116,11 @@ class: slide-med
   * box-shadow
   * More: [csstriggers.com][triggers]
 * Triggering layout will probably also cause paint
+]
+
+.col-half[
+![DevTools Paint Screenshot](images/devtools_paint.png)
+]
 
 ???
 
@@ -126,12 +138,18 @@ class: slide-med
 # Browser Rendering Cycle
 ## Composite Layers
 
+.col-half[
 * Browser paints to layers (like Photoshop's)
 * Sends them to GPU
 * GPU *composites* (flattens) them
   * But can do (animate) some things before this
   * GPU animations are *fast*
 * Then ready for drawing
+]
+
+.col-half[
+![DevTools Composite Screenshot](images/devtools_composite.png)
+]
 
 ???
 
