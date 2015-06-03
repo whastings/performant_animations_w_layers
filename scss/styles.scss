@@ -1,0 +1,19 @@
+@import "base";
+@import "slides";
+@import "examples";
+
+.rendering-cycle img {
+  max-width: 70%;
+}
+
+.rendering-cycle .img-caption {
+  margin-left: 15%;
+}
+
+.layer-slide h1 {
+  -webkit-font-smoothing: antialiased;
+}
+
+.layer-slide code {
+  -webkit-font-smoothing: antialiased;
+}
