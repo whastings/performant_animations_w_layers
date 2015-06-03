@@ -1,0 +1,24 @@
+{
+  "name": "performant_animations_w_layers",
+  "version": "0.0.1",
+  "description": "Slides for my mini-presentation on animating w/ GPU layers.",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whastings/performant_animations_w_layers.git"
+  },
+  "author": "Will Hastings",
+  "license": " ",
+  "bugs": {
+    "url": "https://github.com/whastings/performant_animations_w_layers/issues"
+  },
+  "homepage": "https://github.com/whastings/performant_animations_w_layers#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.1",
+    "gulp-template": "^3.0.0"
+  }
+}

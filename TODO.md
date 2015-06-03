@@ -5,3 +5,4 @@
 * Build pipeline
   * Convert CSS to sass
   * Move Markdown to own file
+  * Get Remark from Bower
