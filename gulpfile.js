@@ -1,17 +1,29 @@
 'use strict';
 
-var connect = require('gulp-connect'),
+var autoprefixer = require('gulp-autoprefixer'),
+    connect = require('gulp-connect'),
+    cssmin = require('gulp-cssmin'),
     fs = require('fs'),
     gulp = require('gulp'),
     sass = require('gulp-sass'),
     template = require('gulp-template');
 
+var isDist = process.argv[2] === 'dist';
+
 gulp.task('build_copy', ['copy_images', 'copy_vendor']);
 
 gulp.task('build_css', function() {
-  return gulp.src('./scss/styles.scss')
+  var stream = gulp.src('./scss/styles.scss')
     .pipe(sass())
-    .pipe(gulp.dest('./build'));
+    .pipe(autoprefixer({cascade: false}));
+
+  if (isDist) {
+    stream = stream.pipe(cssmin());
+  }
+
+  stream = stream.pipe(gulp.dest('./build'));
+
+  return stream;
 });
 
 gulp.task('build_index', function() {
@@ -40,3 +52,4 @@ gulp.task('dev', function() {
 });
 
 gulp.task('build', ['build_copy', 'build_css', 'build_index']);
+gulp.task('dist', ['build']);
