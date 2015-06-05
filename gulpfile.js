@@ -8,7 +8,8 @@ var autoprefixer = require('gulp-autoprefixer'),
     sass = require('gulp-sass'),
     template = require('gulp-template');
 
-var isDist = process.argv[2] === 'dist';
+var isDist = process.argv[2] === 'dist',
+    dest = isDist ? './dist' : './build';
 
 gulp.task('build_copy', ['copy_images', 'copy_vendor']);
 
@@ -21,7 +22,7 @@ gulp.task('build_css', function() {
     stream = stream.pipe(cssmin());
   }
 
-  stream = stream.pipe(gulp.dest('./build'));
+  stream = stream.pipe(gulp.dest(dest));
 
   return stream;
 });
@@ -31,7 +32,7 @@ gulp.task('build_index', function() {
 
   return gulp.src('./index.html')
     .pipe(template({slidesContent: slidesContent}))
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(dest));
 });
 
 gulp.task('copy_images', function() {
@@ -41,14 +42,14 @@ gulp.task('copy_images', function() {
 
 gulp.task('copy_vendor', function() {
   return gulp.src('./remark.min.js')
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(dest));
 });
 
 gulp.task('dev', function() {
   gulp.watch(['slides.md', 'index.html'], ['build_index']);
   gulp.watch('./scss/**/*.scss', ['build_css']);
 
-  connect.server({port: 8000, root: './build'});
+  connect.server({port: 8000, root: dest});
 });
 
 gulp.task('build', ['build_copy', 'build_css', 'build_index']);
